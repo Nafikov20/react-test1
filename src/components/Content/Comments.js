@@ -1,10 +1,10 @@
-function Comments() {
+const Comments = ({ handleChange, label, name, placeholderText}) => {
    return (
       <div className="contentComments">
-         <label htmlFor="">Комментарий</label>
-         <textarea name="" id="" placeholder="Комментарий ..."></textarea>
+         <label htmlFor={name}>{label}</label>
+         <textarea onChange={handleChange} name={name} id={name} placeholder={placeholderText}></textarea>
       </div>
    );
 }
 
-export default Comments;
+export default Comments; 

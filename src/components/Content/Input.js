@@ -1,8 +1,10 @@
-function Input() {
+const Input = ({ handleChange, name, required, label, typeText, placeholderText, ...args }) => {
    return (
       <div className="contentInput">
-         <label htmlFor="">Прибор</label>
-         <input type="text" placeholder="Название прибора ..."/>
+         {label && (
+            <label htmlFor={name}>{label}</label>
+         )}
+         <input onChange={handleChange} required={required}  name={name} id={name} type={typeText} placeholder={placeholderText} {...args}/>
       </div>
    );
 }

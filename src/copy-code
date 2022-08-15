@@ -16,3 +16,123 @@ code {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500&family=Inter:wght@300;400;500;600&family=Roboto:wght@700&display=swap" rel="stylesheet">
+
+
+
+
+<!-- изначальный код -->
+import Input from "./Content/Input";
+import Select from "./Content/Select";
+import Comments from "./Content/Comments";
+import React from "react"
+
+const inputBlock = [
+   {
+      label: 'Прибор',
+      name: 'device',
+      typeText: 'text',
+      placeholderText: 'Название прибора ...',
+      required: true,
+   },
+   {
+      name: 'Номер прибора',
+      typeText: 'number',
+      placeholderText: '№ 1234',
+   },
+   {
+      name: 'Дата поверки',
+      typeText: 'date',
+      placeholderText: '01/01/2022 - 01/01/2022',
+   }
+];
+
+const selectBlock = [
+   {
+      name: 'deviceType',
+      selectText: 'Охрана здоровья',
+      selectOptions: [
+         {
+            value: 'type1',
+            label: 'Охрана здоровья'
+         },
+         {
+            value: 'type2',
+            label: 'Прибор 1'
+         }
+      ],
+   },
+   {
+      name: 'Статус',
+      selectText: 'На складе',
+      selectOptions: [],
+   }
+]
+const commentsBlock = [
+   {
+      name: 'Комментарий',
+      placeholderText: 'Комментарий ...'
+   }
+]
+function Content() {
+   const [formData, setFormData] = React.useState({
+      device: "",
+      deviceType: "",
+   });
+
+
+   const handleSubmit = (event) => {
+      event.preventDefault();
+      console.log(formData);
+   }
+
+   return (
+<div className="registration">
+   <h1>Добавить оборудование</h1>
+         <div className="content">
+            <form onSubmit={handleSubmit}>
+            <div className="contentInput__block">
+                  {inputBlock.map((obj) => (
+                     <Input
+                        key={obj.name}
+                        onChange={event => {
+                           setFormData(prevState => {
+                              return { ...prevState, device: event.target.value }
+                        })}}
+                     label={obj.label}
+                     name={obj.name}
+                     typeText={obj.typeText}
+                     placeholderText={obj.placeholderText}
+                     required={obj.required}
+                  />
+               ))}
+            </div>
+            <div className="contentSelect__block">
+               {selectBlock.map((obj) => (
+                  <Select 
+                     key={obj.name}
+                     name={obj.name}
+                     selectOptions={obj.selectOptions}
+                     selectText={obj.selectText}
+               
+                  />
+               ))}
+            </div>
+            <div className="contentComments__block"> 
+                     {commentsBlock.map((obj) => (
+                        <Comments
+                           name={obj.name}
+                           placeholderText={obj.placeholderText}
+                        />
+                     ))}
+            </div>
+            <div className="contentSave">
+               <button className="buttonSecondary">Сохранить</button>
+               <button className="buttonPrimery">Сохранить и добавить</button>
+            </div>
+      </form> 
+   </div>
+</div>         
+   );
+}
+
+export default Content;
